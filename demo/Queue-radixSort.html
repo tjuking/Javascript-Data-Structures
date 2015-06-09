@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../Queue.js"></script>
+    <script>
+        var queues = [];
+        for(var i=0; i<10; i++){
+            queues[i] = new Queue();
+        }
+        var nums = [];
+        for(var i=0; i<10; i++){
+            nums[i] = Math.floor(Math.random()*100);
+        }
+        console.log("基数排序前", nums);
+        distribute(nums, queues, 10, 1);
+        collect(queues, nums);
+        distribute(nums, queues, 10, 10);
+        collect(queues, nums);
+        console.log("基数排序后", nums);
+
+        function distribute(nums, queues, n, digit){
+            for(var i=0; i<n; i++){
+                if(digit == 1){
+                    queues[nums[i]%10].enqueue(nums[i]);
+                }else{
+                    queues[Math.floor(nums[i]/10)].enqueue(nums[i]);
+                }
+            }
+        }
+        function collect(queues, nums){
+            var i = 0;
+            for(var digit=0; digit<10; digit++){
+                while(!queues[digit].isEmpty()){
+                    nums[i++] = queues[digit].dequeue();
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
