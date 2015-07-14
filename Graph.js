@@ -3,7 +3,7 @@ function Graph(v){
     this.edges = 0;
     this.adj = [];
     this.marked = [];
-    //this.edgeTo = [];
+    this.edgeTo = new Array(v);
     for(var i=0; i<this.vertices.length; i++){
         this.adj[i] = [];
         this.marked[i] = false;
@@ -41,12 +41,32 @@ Graph.prototype = {
             console.log("Visited:" + v);
             for(var i=0; i<this.adj[v].length; i++){
                 if(!this.marked[this.adj[v][i]]){
-                    //this.edgeTo[this.adj[v][i]] = v;
+                    this.edgeTo[this.adj[v][i]] = v;
                     this.marked[this.adj[v][i]] = true;
                     queue.push(this.adj[v][i]);
                 }
             }
         }
+    },
+
+    //路径
+    pathTo: function(s, v){
+        var s = s || 0;
+        this.bfs(s);
+        if(!this.hasPathTo(v)){
+            return undefined;
+        }
+        var path = [];
+        for(var i=v; i!=s; i=this.edgeTo[i]){
+            path.push(i);
+        }
+        path.push(s);
+        console.log("Path:" + path.reverse().join("->"));
+        return path;
+    },
+
+    hasPathTo: function(v){
+        return this.marked[v];
     },
 
     show: function(){
