@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../Graph.js"></script>
+    <script>
+        var g = new Graph(6);
+        g.addEdge(1, 2);
+        g.addEdge(3, 5);
+        g.addEdge(1, 3);
+        g.addEdge(3, 4);
+        g.addEdge(0, 1);
+        g.vertexList = ["CS1", "CS2", "Assembly Language", "Data Structures", "Operating Systems", "Algorithms"];
+        g.showGraph();
+        g.topSort();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

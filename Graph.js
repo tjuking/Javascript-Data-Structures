@@ -1,5 +1,6 @@
 function Graph(v){
     this.vertices = new Array(v);
+    this.vertexList = [];//需要赋值
     this.edges = 0;
     this.adj = [];
     this.marked = [];
@@ -67,6 +68,51 @@ Graph.prototype = {
 
     hasPathTo: function(v){
         return this.marked[v];
+    },
+
+    //拓扑排序算法与深度优先搜索算法类似
+    //不同的是，拓扑排序算法不会立即输出已访问的顶点，而是访问当前顶点邻接表中的所有相邻顶点，直到这个列表穷尽时，才将当前顶点压入栈中
+    topSort: function(){
+        var stack = [];
+        var visited = [];
+        for(var i=0; i<this.vertices.length; i++){
+            visited[i] = false;
+        }
+        for(var i=0; i<this.vertices.length; i++){
+            if(visited[i] === false){
+                this.topSortHelper(i, visited, stack);
+            }
+        }
+        for(var i=stack.length-1; i>=0; i--){
+            console.log(this.vertexList[stack[i]]);
+        }
+    },
+
+    topSortHelper: function(v, visited, stack){
+        visited[v] = true;
+        for(var i=0; i<this.adj[v].length; i++){
+            if(!visited[this.adj[v][i]]){
+                this.topSortHelper(this.adj[v][i], visited, stack);
+            }
+        }
+        stack.push(v);
+    },
+
+    showGraph: function(){
+        var visited = [];
+        for(var i=0; i<this.vertices.length; i++){
+            var resultStr = this.vertexList[i] + " -> ";
+            visited.push(this.vertexList[i]);
+            for(var j=0; j<this.vertices.length; j++){
+                if(this.adj[i][j] != undefined){
+                    if(visited.indexOf(this.vertexList[j]) < 0){
+                        resultStr += this.vertexList[j] + " ";
+                    }
+                }
+            }
+            console.log(resultStr);
+            visited.pop();
+        }
     },
 
     show: function(){
