@@ -1,6 +1,5 @@
 //冒泡排序
 function bubbleSort(data){
-    console.log("Origin:", data);
     var len = data.length;
     var temp;
     for(var outer=len; outer>=2; outer--){
@@ -12,5 +11,4 @@ function bubbleSort(data){
             }
         }
     }
-    console.log("Result:", data);
 }

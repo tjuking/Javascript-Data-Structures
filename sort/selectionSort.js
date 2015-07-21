@@ -3,7 +3,6 @@ function selectionSort(data){
     var len = data.length;
     var min;
     var temp;
-    console.log("Origin:", data);
     for(var i=0; i<=len-2; i++){
         min = i;
         for(var j=i+1; j<=len-1; j++){
@@ -14,5 +13,4 @@ function selectionSort(data){
             }
         }
     }
-    console.log("Result:", data);
 }
